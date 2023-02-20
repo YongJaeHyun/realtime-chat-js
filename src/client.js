@@ -13,8 +13,8 @@ socket.on("connect", () => {
 // 시스템 챗
 socket.on("addSystemChat", ({ content }) => {
   const chatBox = $(`
-      <div id='server-chatBox' >
-          <div id='server-inside-chatBox' style=background-color:#8c7ae6;color:whitesmoke;>
+      <div id='server-chatBox' class='chatBox'>
+          <div id='server-inside-chatBox' class='inside-chatBox' style=background-color:#8c7ae6;color:whitesmoke;>
               <div id='server-contentBox'>
                   <p id='chat-content'>${content}</p>
               </div>
@@ -27,9 +27,9 @@ socket.on("addSystemChat", ({ content }) => {
 // 서버에서 받는 채팅
 socket.on("addChat", ({ nickname, content }) => {
   const chatBox = $(`
-      <div id='server-chatBox'>
-          <div id='server-inside-chatBox'>
-              <div id='server-nicknameBox'>
+      <div id='server-chatBox' class='chatBox'>
+          <div id='server-inside-chatBox' class='inside-chatBox'>
+              <div id='server-nicknameBox' class='nicknameBox'>
                   <span id='chat-nickname'>${nickname}</span>
               </div>
               <div id='server-contentBox'>
@@ -52,9 +52,9 @@ function addChatData(e) {
   const nickname = $("#nickname").val();
   const content = $("#chatInput").val();
   const chatBox = $(`
-    <div id='client-chatBox'>
-        <div id='client-inside-chatBox'>
-            <div id='client-nicknameBox'>
+    <div id='client-chatBox' class='chatBox'>
+        <div id='client-inside-chatBox' class='inside-chatBox'>
+            <div id='client-nicknameBox' class='nicknameBox'>
                 <span id='chat-nickname'>나</span>
             </div>
             <div id='client-contentBox'>
