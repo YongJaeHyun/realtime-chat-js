@@ -20,7 +20,7 @@ io.sockets.on("connection", (socket) => {
 
   socket.on("greeting", (nickname) => {
     // socket 객체에 nickname이라는 key를 생성하여,
-    // disconnect시에 해당 client의 마지막 닉네임을 알 수 있도록 함.
+    // disconnect시에 해당 client의 마지막 닉네임을 socket.nickname으로 읽을 수 있게 함.
     socket.nickname = nickname;
     // socket.broadcast.emit은 자신 이외에 전체 socket들에게 전달하게 함.
     socket.broadcast.emit("addSystemChat", {

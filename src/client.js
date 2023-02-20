@@ -10,7 +10,7 @@ socket.on("connect", () => {
   socket.emit("greeting", initialNickname);
 });
 
-// 시스템 챗
+// 서버로부터 받는 데이터로 시스템 챗 블럭 생성
 socket.on("addSystemChat", ({ content }) => {
   const chatBox = $(`
       <div id='server-chatBox' class='chatBox'>
@@ -24,7 +24,7 @@ socket.on("addSystemChat", ({ content }) => {
   $("#chatContainer").prepend(chatBox);
 });
 
-// 서버에서 받는 채팅
+// 서버로부터 받는 데이터로 채팅 블럭 생성
 socket.on("addChat", ({ nickname, content }) => {
   const chatBox = $(`
       <div id='server-chatBox' class='chatBox'>
@@ -46,7 +46,7 @@ function setConnection() {
   socket.emit("modify nickname", nickname);
 }
 
-// client쪽에서 받은 데이터는 client단에서 렌더링하고 서버로 데이터를 넘김
+// client쪽에서 받은 데이터로 client단에서 채팅 블럭 생성 후, 서버로 데이터를 넘김
 function addChatData(e) {
   e.preventDefault();
   const nickname = $("#nickname").val();
