@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../src/client.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <header>
+      <h1>My Realtime ChatRoom</h1>
+    </header>
+    <main id="container">
+      <form id="addChatForm">
+        <div id="nicknameBox">
+          <label for="nickname">현재 닉네임:</label>
+          <input
+            type="text"
+            id="nickname"
+            value=""
+            minlength="2"
+            maxlength="20"
+            required
+          />
+          <input type="button" id="nicknameBtn" class="button" value="적용" />
+        </div>
+        <section id="chatContainer"></section>
+        <div id="inputBox">
+          <input
+            id="chatInput"
+            type="text"
+            autocomplete="off"
+            placeholder="자유롭게 채팅해보세요!"
+            required
+          />
+          <input id="addChatBtn" class="button" type="submit" value="전송" />
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
