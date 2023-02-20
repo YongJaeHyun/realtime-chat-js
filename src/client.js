@@ -15,7 +15,7 @@ socket.on("addSystemChat", ({ content }) => {
   const chatBox = $(`
       <div id='server-chatBox' class='chatBox'>
           <div id='server-inside-chatBox' class='inside-chatBox' style=background-color:#8c7ae6;color:whitesmoke;>
-              <div id='server-contentBox'>
+              <div>
                   <p id='chat-content'>${content}</p>
               </div>
           </div>
@@ -29,11 +29,11 @@ socket.on("addChat", ({ nickname, content }) => {
   const chatBox = $(`
       <div id='server-chatBox' class='chatBox'>
           <div id='server-inside-chatBox' class='inside-chatBox'>
-              <div id='server-nicknameBox' class='nicknameBox'>
-                  <span id='chat-nickname'>${nickname}</span>
+              <div class='nicknameBox'>
+                  <span>${nickname}</span>
               </div>
-              <div id='server-contentBox'>
-                  <p id='chat-content'>${content}</p>
+              <div>
+                  <p>${content}</p>
               </div>
           </div>
       </div> 
@@ -54,11 +54,11 @@ function addChatData(e) {
   const chatBox = $(`
     <div id='client-chatBox' class='chatBox'>
         <div id='client-inside-chatBox' class='inside-chatBox'>
-            <div id='client-nicknameBox' class='nicknameBox'>
-                <span id='chat-nickname'>나</span>
+            <div class='nicknameBox'>
+                <span>나</span>
             </div>
-            <div id='client-contentBox'>
-                <p id='chat-content'>${content}</p>
+            <div>
+                <p>${content}</p>
             </div>
         </div>
     </div> 
