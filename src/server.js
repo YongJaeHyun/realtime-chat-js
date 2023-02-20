@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const server = http.createServer(app);
 const { Server } = require("socket.io");
+// cors 설정
 const io = new Server(server, {
   cors: {
     origin: "*",
@@ -18,7 +19,10 @@ io.sockets.on("connection", (socket) => {
   console.log("소켓 연결 성공...");
 
   socket.on("greeting", (nickname) => {
+    // socket 객체에 nickname이라는 key를 생성하여,
+    // disconnect시에 해당 client의 마지막 닉네임을 알 수 있도록 함.
     socket.nickname = nickname;
+    // socket.broadcast.emit은 자신 이외에 전체 socket들에게 전달하게 함.
     socket.broadcast.emit("addSystemChat", {
       content: `${nickname} 님이 입장하셨습니다.`,
     });

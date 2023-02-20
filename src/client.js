@@ -1,3 +1,4 @@
+// cors 설정
 const socket = io.connect("http://localhost:3000", {
   cors: { origin: "*" },
 });
@@ -9,6 +10,7 @@ socket.on("connect", () => {
   socket.emit("greeting", initialNickname);
 });
 
+// 시스템 챗
 socket.on("addSystemChat", ({ content }) => {
   const chatBox = $(`
       <div id='server-chatBox' >
@@ -22,6 +24,7 @@ socket.on("addSystemChat", ({ content }) => {
   $("#chatContainer").prepend(chatBox);
 });
 
+// 서버에서 받는 채팅
 socket.on("addChat", ({ nickname, content }) => {
   const chatBox = $(`
       <div id='server-chatBox'>
@@ -43,6 +46,7 @@ function setConnection() {
   socket.emit("modify nickname", nickname);
 }
 
+// client쪽에서 받은 데이터는 client단에서 렌더링하고 서버로 데이터를 넘김
 function addChatData(e) {
   e.preventDefault();
   const nickname = $("#nickname").val();

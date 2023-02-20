@@ -169,3 +169,12 @@ button {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+
+.box {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.box::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
