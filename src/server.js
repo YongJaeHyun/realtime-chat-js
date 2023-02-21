@@ -50,8 +50,7 @@ io.sockets.on("connection", (socket) => {
     if (chatTarget === "ALL") {
       socket.broadcast.emit("addChat", { nickname, content, isDM: false });
     } else {
-      const target = io.sockets.sockets.get(chatTarget);
-      target.emit("addChat", { nickname, content, isDM: true });
+      io.to(chatTarget).emit("addChat", { nickname, content, isDM: true });
     }
   });
 });
