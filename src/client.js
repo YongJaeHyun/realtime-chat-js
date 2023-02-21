@@ -3,6 +3,8 @@ const socket = io.connect("http://localhost:3000", {
   cors: { origin: "*" },
 });
 
+let externalSockets = {};
+
 socket.on("connect", () => {
   console.log("소켓으로 접속 됨.");
   const initialNickname = `익명${Math.floor(Math.random() * 10000)}`;
@@ -13,6 +15,7 @@ socket.on("connect", () => {
 
 // 서버에서 상대방의 greeting처리가 끝나면 DM을 할 수 있도록 option추가.
 socket.on("greeting", ({ nickname, socketId }) => {
+  externalSockets[nickname] = socketId;
   const value = $(`<option value='${socketId}'>${nickname}</option>`);
   $("#chatTarget").append(value);
 });
@@ -36,8 +39,8 @@ socket.on("addChat", ({ nickname, content, isDM }) => {
   const chatBox = $(`
       <div id='server-chatBox' class='chatBox'>
           <div id='server-inside-chatBox' class='inside-chatBox'>
-              <div class='nicknameBox'>
-                  <span>${nickname}</span>
+              <div id='server-nicknameBox' class='nicknameBox'>
+                  <span id='targetNickname'>${nickname}</span>
                   <span id='dm'>${isDM ? "(DM)" : ""}</span>
               </div>
               <div>
@@ -47,6 +50,7 @@ socket.on("addChat", ({ nickname, content, isDM }) => {
       </div> 
       `);
   $("#chatContainer").prepend(chatBox);
+  $("#server-nicknameBox").on("click", setChatTarget);
 });
 
 function modifyNickname() {
@@ -92,6 +96,12 @@ function addClientChatData(e) {
   $("#chatContainer").prepend(chatBox);
   $("#chatInput").val("");
   socket.emit("addChat", { nickname, content, chatTarget });
+}
+
+function setChatTarget() {
+  const nickname = $("#server-nicknameBox").children("#targetNickname").text();
+  const socketId = externalSockets[nickname];
+  $("#chatTarget").val(socketId).trigger("change");
 }
 
 $(document).ready(() => {
