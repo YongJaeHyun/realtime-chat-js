@@ -19,6 +19,7 @@ io.sockets.on("connection", (socket) => {
   console.log("소켓 연결 성공...");
 
   socket.on("greeting", (nickname) => {
+    const socketId = socket.id;
     // socket 객체에 nickname이라는 key를 생성하여,
     // disconnect시에 해당 client의 마지막 닉네임을 socket.nickname으로 읽을 수 있게 함.
     socket.nickname = nickname;
@@ -26,6 +27,7 @@ io.sockets.on("connection", (socket) => {
     socket.broadcast.emit("addSystemChat", {
       content: `${nickname} 님이 입장하셨습니다.`,
     });
+    socket.broadcast.emit("greeting", { nickname, socketId });
   });
 
   socket.on("modify nickname", (nickname) => {
@@ -44,8 +46,13 @@ io.sockets.on("connection", (socket) => {
     });
   });
 
-  socket.on("addChat", ({ nickname, content }) => {
-    socket.broadcast.emit("addChat", { nickname, content });
+  socket.on("addChat", ({ nickname, content, chatTarget }) => {
+    if (chatTarget === "ALL") {
+      socket.broadcast.emit("addChat", { nickname, content, isDM: false });
+    } else {
+      const target = io.sockets.sockets.get(chatTarget);
+      target.emit("addChat", { nickname, content, isDM: true });
+    }
   });
 });
 
